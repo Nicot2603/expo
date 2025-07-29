@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ciberseguridad en EPS Colombia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .slide-number {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ffeb3b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h3 {
+            font-size: 1.8em;
+            margin: 25px 0 15px 0;
+            color: #4fc3f7;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .text-content {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .visual-content {
+            text-align: center;
+        }
+
+        .icon-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .icon-container:hover {
+            transform: translateY(-10px);
+        }
+
+        .cyber-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffeb3b;
+            display: block;
+        }
+
+        .problems-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .problems-list li {
+            background: rgba(244, 67, 54, 0.2);
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #f44336;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .problems-list li:hover {
+            background: rgba(244, 67, 54, 0.3);
+            transform: translateX(10px);
+        }
+
+        .case-study {
+            background: rgba(255, 152, 0, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #ff9800;
+            backdrop-filter: blur(10px);
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .solution-card {
+            background: rgba(76, 175, 80, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #4caf50;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            background: rgba(76, 175, 80, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        .warning-banner {
+            background: linear-gradient(45deg, #f44336, #e91e63);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 4px solid #2196f3;
+            backdrop-filter: blur(10px);
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .single-column {
+            grid-template-columns: 1fr;
+        }
+
+        .center-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-number">Presentación Grupal</div>
+                <h1>🛡️ Ciberseguridad en Colombia</h1>
+                <h2>Caso de las EPS</h2>
+            </div>
+            <div class="content center-content single-column">
+                <div class="icon-container">
+                    <span class="cyber-icon">🏥💻🔒</span>
+                    <h3>Protegiendo la Salud Digital</h3>
+                    <p style="font-size: 1.3em; margin-top: 20px;">
+                        Un análisis profundo de los desafíos de ciberseguridad 
+                        en las Entidades Promotoras de Salud de Colombia
+                    </p>
+                </div>
+                <div class="warning-banner">
+                    ⚠️ 4 participantes ⚠️
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Participante 1 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">Participante 1</div>
+                <h2>🌐 Introducción y Contexto Nacional</h2>
+            </div>
+            <div class="content">
+                <div class="text-content">
+                    <h3>¿Qué es la Ciberseguridad?</h3>
+                    <p>Protección de datos, redes y sistemas contra ataques digitales</p>
+                    
+                    <h3>🇨🇴 Panorama en Colombia</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">#1</span>
+                            Posición en ataques cibernéticos en Latinoamérica
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">85%</span>
+                            Aumento de incidentes en 2023-2024
+                        </div>
+                    </div>
+
+                    <h3>⚡ Factores Críticos</h3>
+                    <ul class="problems-list">
+                        <li>🏛️ <strong>Regulación limitada</strong></li>
+                        <li>💰 <strong>Presupuesto estatal insuficiente</strong></li>
+                        <li>👨‍💻 <strong>Escasez de profesionales especializados</strong></li>
+                    </ul>
+                </div>
+                <div class="visual-content">
+                    <div class="icon-container">
+                        <span class="cyber-icon">🎯</span>
+                        <h3>¿Por qué las EPS?</h3>
+                        <p>Las EPS son objetivos críticos por:</p>
+                        <br>
+                        <div style="text-align: left;">
+                            <p>🔹 Millones de datos personales</p>
+                            <p>🔹 Historiales médicos sensibles</p>
+                            <p>🔹 Información financiera</p>
+                            <p>🔹 Infraestructura vulnerable</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Participante 2 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">Participante 2</div>
+                <h2>⚠️ Problemas de Ciberseguridad en las EPS</h2>
+            </div>
+            <div class="content single-column">
+                <h3>🏗️ Problemas Estructurales</h3>
+                <div class="stats-grid">
+                    <div class="stat-card" style="background: rgba(244, 67, 54, 0.2);">
+                        <span class="cyber-icon">🏢</span>
+                        <strong>Infraestructura Deficiente</strong>
+                        <p>Sistemas obsoletos y sin actualizaciones</p>
+                    </div>
+                    <div class="stat-card" style="background: rgba(244, 67, 54, 0.2);">
+                        <span class="cyber-icon">💾</span>
+                        <strong>Software Desactualizado</strong>
+                        <p>Plataformas con vulnerabilidades conocidas</p>
+                    </div>
+                    <div class="stat-card" style="background: rgba(244, 67, 54, 0.2);">
+                        <span class="cyber-icon">🔑</span>
+                        <strong>Contraseñas Débiles</strong>
+                        <p>Malas prácticas de seguridad básica</p>
+                    </div>
+                </div>
+
+                <h3>👥 Factor Humano</h3>
+                <ul class="problems-list">
+                    <li>🎓 <strong>Falta de capacitación del personal</strong> - Empleados sin conocimiento en ciberseguridad</li>
+                    <li>🎣 <strong>Vulnerabilidad al phishing</strong> - Ingeniería social efectiva</li>
+                    <li>📱 <strong>Malas prácticas digitales</strong> - Uso inadecuado de dispositivos y redes</li>
+                </ul>
+
+                <h3>🚨 Gestión de Crisis</h3>
+                <div class="case-study">
+                    <strong>Problemas típicos durante incidentes:</strong>
+                    <br><br>
+                    ⏰ <strong>Respuesta lenta:</strong> Demoras en detectar y responder<br>
+                    📢 <strong>Comunicación deficiente:</strong> Usuarios sin información<br>
+                    🔧 <strong>Recuperación ineficiente:</strong> Procesos manuales y desorganizados
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Participante 3 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">Participante 3</div>
+                <h2>📰 Casos Reales y Análisis de Impacto</h2>
+            </div>
+            <div class="content">
+                <div class="text-content">
+                    <div class="case-study">
+                        <h3>🎯 Caso: EPS Sanitas y Nueva EPS</h3>
+                        <strong>📅 Octubre 2023</strong>
+                        <br><br>
+                        <strong>🦠 Tipo de ataque:</strong> Ransomware masivo
+                        <br>
+                        <strong>⏱️ Duración:</strong> Varios días de interrupción
+                        <br>
+                        <strong>🎯 Objetivo:</strong> Cifrado de información y extorsión
+                    </div>
+                    
+                    <h3>💥 Consecuencias Inmediatas</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <strong>🚫 Servicios bloqueados</strong><br>
+                            Miles de usuarios sin acceso a citas y medicamentos
+                        </div>
+                        <div class="timeline-item">
+                            <strong>📊 Datos expuestos</strong><br>
+                            Información confidencial de afiliados comprometida
+                        </div>
+                        <div class="timeline-item">
+                            <strong>🏥 Sistema colapsado</strong><br>
+                            Atención médica afectada en todo el país
+                        </div>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="icon-container">
+                        <span class="cyber-icon">📈</span>
+                        <h3>Impacto a Mediano Plazo</h3>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card" style="background: rgba(244, 67, 54, 0.2);">
+                            <span class="stat-number">😟</span>
+                            <strong>Desconfianza</strong>
+                            <p>Pérdida de credibilidad</p>
+                        </div>
+                        <div class="stat-card" style="background: rgba(244, 67, 54, 0.2);">
+                            <span class="stat-number">💸</span>
+                            <strong>Costos</strong>
+                            <p>Recuperación millonaria</p>
+                        </div>
+                        <div class="stat-card" style="background: rgba(244, 67, 54, 0.2);">
+                            <span class="stat-number">⚖️</span>
+                            <strong>Legal</strong>
+                            <p>Demandas y sanciones</p>
+                        </div>
+                    </div>
+
+                    <div class="warning-banner">
+                        🔍 <strong>Otros casos menores</strong><br>
+                        EPS regionales también han sido objetivo de ataques similares
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Participante 4 -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-number">Participante 4 (6-7 min)</div>
+                <h2>🚀 Propuestas, Retos y Conclusiones</h2>
+            </div>
+            <div class="content single-column">
+                <h3>💡 Propuestas Específicas</h3>
+                <div class="solutions-grid">
+                    <div class="solution-card">
+                        <span class="cyber-icon">🔧</span>
+                        <strong>Modernización Tecnológica</strong>
+                        <p>Actualización de sistemas y infraestructura</p>
+                    </div>
+                    <div class="solution-card">
+                        <span class="cyber-icon">📋</span>
+                        <strong>Certificaciones ISO 27001</strong>
+                        <p>Implementación de estándares internacionales</p>
+                    </div>
+                    <div class="solution-card">
+                        <span class="cyber-icon">🎓</span>
+                        <strong>Capacitación Masiva</strong>
+                        <p>Formación continua para todos los empleados</p>
+                    </div>
+                    <div class="solution-card">
+                        <span class="cyber-icon">🚨</span>
+                        <strong>Equipos de Respuesta</strong>
+                        <p>Especialistas en manejo de incidentes</p>
+                    </div>
+                </div>
+
+                <h3>🏛️ Papel del Estado Colombiano</h3>
+                <div class="case-study">
+                    <strong>📜 Refuerzo normativo:</strong> Fortalecimiento de la Ley 1581 de 2012
+                    <br><br>
+                    <strong>👁️ Vigilancia activa:</strong> Control desde la Superintendencia de Salud
+                    <br><br>
+                    <strong>💰 Inversión pública:</strong> Presupuesto nacional para ciberseguridad
+                    <br><br>
+                    <strong>🤝 Cooperación internacional:</strong> Alianzas con organismos especializados
+                </div>
+
+                <div class="warning-banner">
+                    🛡️ <strong>"La ciberseguridad ya no es opcional en Colombia.<br>
+                    Proteger la información es proteger el bienestar de todos."</strong>
+                </div>
+
+                <div class="center-content" style="margin-top: 40px;">
+                    <h3>¡Gracias por su atención!</h3>
+                    <p style="font-size: 1.3em; margin-top: 20px;">
+                        ¿Preguntas o comentarios? 🤔
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn active" onclick="showSlide(0)">Portada</button>
+        <button class="nav-btn" onclick="showSlide(1)">Contexto</button>
+        <button class="nav-btn" onclick="showSlide(2)">Problemas</button>
+        <button class="nav-btn" onclick="showSlide(3)">Casos</button>
+        <button class="nav-btn" onclick="showSlide(4)">Soluciones</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const navBtns = document.querySelectorAll('.nav-btn');
+
+        function showSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            navBtns[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            navBtns[currentSlide].classList.add('active');
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+                showSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 6 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Auto-advance slides (optional)
+        // setInterval(() => {
+        //     if (currentSlide < slides.length - 1) {
+        //         showSlide(currentSlide + 1);
+        //     }
+        // }, 30000); // 30 seconds per slide
+    </script>
+</body>
+</html>
